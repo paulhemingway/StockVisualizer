@@ -1,1 +1,10 @@
 33451WDSYYNTOXAH
+
+Symbol
+Time series (intraday, daily, weekly, monthly)
+start date
+end date
+
+format: 
+
+https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&outputsize=full&apikey=33451WDSYYNTOXAH
