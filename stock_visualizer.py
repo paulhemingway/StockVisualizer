@@ -8,14 +8,14 @@ def menu():
 menu()
 graph_type = int(input(''))
 
-while option != 0:
-    if option == 1:
+while graph_type != 0:
+    if graph_type == 1:
         print('Success!')
-    elif option == 2:
+    elif graph_type == 2:
         print('Success!')
     else: print("Please enter a valid input")
 
     print()
     menu()
-    option = int(input(''))
+    graph_type = int(input(''))
 
