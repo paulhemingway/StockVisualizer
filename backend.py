@@ -16,7 +16,7 @@ timeSeries = "TIME_SERIES_MONTHLY"
 apiKey = "33451WDSYYNTOXAH"
 
 beginning = "2021-03-22"
-end = "2022-01-16"
+end = "2022-08-16"
 
 chartOpen = []
 chartHigh = []
@@ -52,7 +52,7 @@ for entry in data["Monthly Time Series"]:
 
 reverseLists()
 
-line_chart = pygal.Line()
+line_chart = pygal.Line(x_label_rotation=65)
 line_chart.title = 'Stock Data for ' + symbol + ": " + beginning + " to " +  end
 line_chart.x_labels = chartDates
 line_chart.add('Open', chartOpen)
