@@ -1,6 +1,8 @@
 import datetime
 from datetime import date
+from time import strftime
 
+# While statement to loop until correct value is entered
 while (True):
     try:
         beginning_date = datetime.datetime.strptime(
@@ -11,18 +13,23 @@ while (True):
     else:
         break
 
+# this block is for the end date and has error checks so it cannot be after today
 while (True):
     try:
         end_date = datetime.datetime.strptime(
             input("Please enter the end date (YYYY-MM-DD): "), '%Y-%m-%d')
-        #end_date = '2022-10-16'
+
+        # converts end date to a string to compare to todays date as number
         end = str(end_date).replace('-', '')
-        API_end_date = str(end_date.strftime("%Y-%m-%d"))
+        end_output = str(end_date.strftime("%Y-%m-%d"))
         today = date.today().strftime("%Y%m%d")
+
+        # adds a leading 0 to days to compare to today's date if not included already. datetime already adds leading zero to month
         if (len(end) < 8):
             slice = 6
             new = end[:slice] + "0" + end[slice:]
             end = new
+
         if (end > today):
             print("Date cannot be after current date")
             continue
@@ -30,4 +37,4 @@ while (True):
         print("Incorrect data format, should be YYYY-MM-DD")
     else:
         break
-print(API_end_date)
+print(end_output)
