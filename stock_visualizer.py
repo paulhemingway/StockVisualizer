@@ -1,23 +1,38 @@
-def menu():
-    print('Stock Visualizer\n')
+def main():
+    print('\nStock Visualizer\n')
     print('------------------\n')
+    stockSymbol = stock_symbol()
+    chartType = chart_type()
+    timeSeries = time_series()
+
+    print("Chart type: " + str(chartType))
+    print("Time series: " + str(timeSeries))
+    print("Stock: " + stockSymbol)
+
+def stock_symbol():
+    while True:
+        stock = input("Enter the stock symbol you are looking for: ")
+        if stock.isalpha() and len(stock) <= 5 and len(stock) > 0:
+            break
+        else:
+            print("Stock must be alphabetic and up to 5 characters.")
+            continue
+    return stock
+
+def chart_type():
+
     print('Select 1 or 2 for Chart Type\n')
     print('1. Bar')
     print('2. Line')
 
-menu()
-graph_type = int(input(''))
-
-while graph_type != 0:
-    if graph_type == 1:
-        print('You chose', graph_type)
-    elif graph_type == 2:
-        print('You chose', graph_type)
-    else: print("Please enter a valid input")
-    
-    print()
-    menu()
-    graph_type = int(input(''))
+    while True:
+        graph_type = int(input('Your selection: '))
+        if graph_type == 1 or graph_type == 2:
+            break
+        else:
+            print("Please enter a valid input")
+            continue
+    return graph_type
 
 def time_series():
     print('Select the Time Series of the Chart You Wish to Generate\n')
@@ -28,19 +43,12 @@ def time_series():
     print('3. Weekly')
     print('4. Monthly')
 
-time_series()
-time_type = int(input(''))
-
-while time_type != 0:
-    if time_type == 1:
-        print('Success!')
-    elif time_type == 2:
-        print('Success!')
-    elif time_type == 3:
-        print('Success!')
-    elif time_type == 4:
-        print('You chose', time_type)
-    else: print("Please enter a valid input")
-
-    menu()
-    time_type = int(input(''))
+    while True:
+        time_type = int(input('Your selection: '))
+        if time_type >= 1 and time_type <= 4:
+            break
+        else:
+            print("Please enter a valid input")
+            continue
+    return time_type
+main()

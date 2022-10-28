@@ -6,7 +6,7 @@ from time import strftime
 while (True):
     try:
         beginning_date = datetime.datetime.strptime(
-            input("Please enter the beginning date (YYYY-MM-DD): "), '%Y-%m-%d')
+            input("Please enter the start date (YYYY-MM-DD): "), '%Y-%m-%d')
     except ValueError:
         print("Incorrect data format, should be YYYY-MM-DD")
         # continue
