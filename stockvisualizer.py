@@ -1,10 +1,9 @@
 import datetime
 from time import strftime
 import requests
-from lxml import etree
 import pygal
 
-timeSeriesTypes = ["INTRADAY", "DAILY", "WEEKLY", "MONTHLY"]
+timeSeriesTypes = ["INTRADAY", "DAILY_ADJUSTED", "WEEKLY", "MONTHLY"]
 timeSeriesURL = ['Time Series (60min)', 'Time Series (Daily)', 'Weekly Time Series', 'Monthly Time Series']
 apiKey = "33451WDSYYNTOXAH"
 
@@ -18,6 +17,7 @@ chartLists = {
 
 def main():
     while True:
+       
         emptyLists()
         print("Stock Data Visualizer\n-------------------------\n")
 
@@ -40,31 +40,29 @@ def main():
             break
 
 def stock_symbol():
-    while True:
-        stock=input("Enter the stock symbol you are looking for: ")
+    stock=input("Enter the stock symbol you are looking for: ")
 
-        # checks if stock is alphabetic and no more than 5 characters
-        if stock.isalpha() and len(stock) <= 5:
-            break
-        else:
-            print("Stock symbol must be alphabetic and 1-5 characters.")
-    return stock
+    # checks if stock is alphabetic and no more than 7 characters
+    if stock.isalpha() and len(stock) <= 7:
+        return stock
+    else:
+        print("Stock symbol must be alphabetic and 1-7 characters.")
+        return 'NA'
 
 def chart_type():
     print('Select 1 or 2 for Chart Type\n')
     print('1. Line')
     print('2. Bar')
 
-    while True:
-        try:
-            graph_type = int(input('Your selection: '))
-            if graph_type == 1 or graph_type == 2:
-                break
-            else:
-                print("Please enter a valid input")
-        except ValueError:
-            print("Input must be a 1 or 2")
-    return graph_type
+    try:
+        graph_type = int(input('Your selection: '))
+        if graph_type == 1 or graph_type == 2:
+          return graph_type
+        else:
+            raise ValueError
+    except ValueError:
+        print("Input must be a 1 or 2")
+        
 
 def time_series():
     print('Select the Time Series of the Chart You Wish to Generate\n')
@@ -73,40 +71,36 @@ def time_series():
     print('2. Daily')
     print('3. Weekly')
     print('4. Monthly')
-
-    while True:
-        try:
-            time_type = int(input('Your selection: '))
-            if time_type >= 1 and time_type <= 4:
-                break
-            else:
-                print("Input must be an integer 1-4.")
-                continue
-        except ValueError:
+    try:
+        time_type = int(input('Your selection: '))
+        if time_type >= 1 and time_type <= 4:
+          return time_type
+        else:
             print("Input must be an integer 1-4.")
-    return time_type
+    except ValueError:
+        print("Input must be an integer 1-4.")
+    return 0
 
 def get_dates():
     # While statement to loop until correct value is entered
-    while (True):
-        try:
-            start = datetime.datetime.strptime(
-                input("Please enter the start date (YYYY-MM-DD): "), '%Y-%m-%d')
-        except ValueError:
-            print("Incorrect data format, should be YYYY-MM-DD")
-            # continue
-        else:
-            break
-    while (True):
-        try:
-            end = datetime.datetime.strptime(input("Please enter the end date (YYYY-MM-DD): "), '%Y-%m-%d')
-            if(start >= end):
-                print("End date must be AFTER the start date!")
-                continue
-        except ValueError:
-            print("Invalid date, should be YYYY-MM-DD")
-        else:
-            break
+    
+    try:
+        start = datetime.datetime.strptime(
+            input("Please enter the start date (YYYY-MM-DD): "), '%Y-%m-%d')
+    except ValueError:
+        print("Incorrect data format, should be YYYY-MM-DD")
+        return
+        # continue
+        
+    
+    try:
+        end = datetime.datetime.strptime(input("Please enter the end date (YYYY-MM-DD): "), '%Y-%m-%d')
+        if(start >= end):
+            print("End date must be AFTER the start date!")
+    except ValueError:
+        print("Invalid date, should be YYYY-MM-DD")
+        return
+
     dates = [start, end]
     return dates
 
@@ -159,4 +153,4 @@ def renderChart(symbol, dates, chartType):
         print("No data was received for your inputs!")
         return
     chart.render_in_browser()
-main()
+#main()
